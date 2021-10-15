@@ -4,15 +4,16 @@ import createLocalStore from "./createLocalStore";
 import basicAttackImage from "../assets/skills/basic-attack.png";
 
 const initialState = {
-  name: "SkeleBoii",
-  health: 10,
+  name: "Enemy",
+  avatar: "weakSkeleton",
+  health: 5,
   level: 1,
   attributes: {
     strength: 1,
     endurance: 1,
     magic: 1,
     dexterity: 1,
-    maxHealth: 10,
+    maxHealth: 5,
   },
   skills: [
     {
@@ -44,25 +45,18 @@ export function EnemyProvider(props) {
       rename(newName) {
         setEnemy("name", newName);
       },
-      generateNextEnemy() {
+      generateNextEnemy(newEnemy) {
         setEnemy({
           ...initialState,
-          name: "NEW SKELEBOI",
-          level: 2,
-          health: 12,
+          ...newEnemy,
           attributes: {
             ...initialState.attributes,
-            maxHealth: 12,
-            strength: 1,
+            ...newEnemy.attributes,
           },
         });
       },
     },
   ];
 
-  return (
-    <EnemyContext.Provider value={store}>
-      {props.children}
-    </EnemyContext.Provider>
-  );
+  return <EnemyContext.Provider value={store}>{props.children}</EnemyContext.Provider>;
 }
