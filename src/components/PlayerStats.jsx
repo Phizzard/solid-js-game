@@ -17,6 +17,9 @@ export function PlayerStats() {
     <>
       <div class="text-left text-base">
         <p onClick={() => setShowRenameDialog(true)}>Name: {player.name}</p>
+        <p>
+          Health: {player.health}/{player.attributes.maxHealth}
+        </p>
         <p>Strength: {player.attributes.strength}</p>
         <p>Endurance: {player.attributes.endurance}</p>
         <p>Dexterity: {player.attributes.dexterity}</p>
@@ -25,12 +28,7 @@ export function PlayerStats() {
       <dialog open={showRenameDialog()}>
         <form method="dialog">
           <label id="playerName">Player Name</label>
-          <Input
-            label="Rename Player"
-            name="playerName"
-            value={newName()}
-            onChange={(e) => setNewName(e.currentTarget.value)}
-          />
+          <Input label="Rename Player" name="playerName" value={newName()} onChange={(e) => setNewName(e.currentTarget.value)} />
           <Button onClick={renameHandler}>Save</Button>
         </form>
       </dialog>

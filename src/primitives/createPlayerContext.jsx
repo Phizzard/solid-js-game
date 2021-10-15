@@ -5,11 +5,13 @@ import basicAttackImage from "../assets/skills/basic-attack.png";
 
 const initialPlayer = {
   name: "Player",
+  health: 10,
   attributes: {
     strength: 1,
     endurance: 1,
     magic: 1,
     dexterity: 1,
+    maxHealth: 10,
   },
   skills: [
     {
@@ -46,12 +48,7 @@ export function PlayerProvider(props) {
         const rawDamage =
           skillToUse.baseDamage +
           skillToUse.bonusDamage.reduce(
-            (acc, bonus) =>
-              acc +
-              Math.floor(
-                player.attributes[bonus.stat] *
-                  (bonus.magnitude + bonus.magnitude * 0.2)
-              ),
+            (acc, bonus) => acc + Math.floor(player.attributes[bonus.stat] * (bonus.magnitude + bonus.magnitude * 0.2)),
             0
           );
 
@@ -60,9 +57,5 @@ export function PlayerProvider(props) {
     },
   ];
 
-  return (
-    <PlayerContext.Provider value={store}>
-      {props.children}
-    </PlayerContext.Provider>
-  );
+  return <PlayerContext.Provider value={store}>{props.children}</PlayerContext.Provider>;
 }
